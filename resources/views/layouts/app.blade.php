@@ -72,8 +72,6 @@
             @yield('content')
         </main>
     </div>
-
-
 @endguest
 
    
