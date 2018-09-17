@@ -29,7 +29,7 @@
 </div>
 
 <div class="form-group">
-  <label class="control-label">Precio del prducto</label>
+  <label class="control-label">Precio del prducto</label> 
   <div class="form-group">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
