@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Funciones extends Model
 {
    /**
@@ -24,7 +25,7 @@ class Funciones extends Model
     }
 
     /**
-    *funcion calcular IVA
+    *funcion calcular IVA del precio de un producto
     */
     public function calcularIva($precio)
     {
@@ -37,15 +38,40 @@ class Funciones extends Model
         
     }
     /**
-    * Prueba para la funcion Aumentar Stock
+    * Funcion para Aumentar Stock de un producto en inventario
     */
-    public function aumentarStock(1,50));    
-    }    /**
-    * Prueba para la funcion calcular IVA
+    public function aumentarStock($id_producto,$cantidad)
+    {
+        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        $producto->cantidad_disponible=$producto->cantidad_disponible+$cantidad;
+        $producto->save();
+        $producto2=Pruducto::where('id_producto',$id_producto)->get();
+        return $producto->cantidad_disponible;
+    }  
+    /**
+    * Funcion para Disminuir Stock de un producto en inventario
     */
-    public function disminuirStock(1,10));    
+    public function disminuirStock($id_producto,$cantidad)   
+    {
+        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        $producto->cantidad_disponible=$producto->cantidad_disponible-$cantidad;
+        $producto->save();
+        $producto2=Pruducto::where('id_producto',$id_producto)->get();
+        return $producto->cantidad_disponible;
     }
+    /**
+    * Funcion para Verificar si existe un producto en inventario
+    */
+    public function productoExiste($id_producto)
+    {
+        $respuesta=false;
+        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        if(!$producto->isEmpty())
+        {
+            $respuesta=true;
+        }
 
-    public function productoExiste(1));
+        return $respuesta;        
+    }
 
 }
