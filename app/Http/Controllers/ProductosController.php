@@ -95,6 +95,9 @@ class ProductosController extends Controller
         $prod->ruta_imagen=$file->getClientOriginalName();
         $prod->precio = $request->input('precio');
         $prod->save();
+         //Mover el archivo subido
+         $destinationPath = 'fotosproductos/';
+         $file->move($destinationPath, $file->getClientOriginalName());
         
         return $this->mostrar();
     }
