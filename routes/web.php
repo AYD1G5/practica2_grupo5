@@ -32,4 +32,16 @@ Route::get('/EliminarProducto', function (){
 Route::get('/VerProducto', function (){
     return view('CRUDPRODUCTO/Listar');
 });
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/PruebaCrearCliente', function(){
+  return view('CRUDClientes.CrearCliente');
+});
+Route::get('/PruebaEditarCliente2', function(){
+  return view('CRUDClientes.EditarCliente2');
+});
+Route::get('/PruebaEditarCliente', function(){
+  return view('CRUDClientes.EditarCliente');
+});
+Route::get('/facturacompra', 'FacturaCompraController@index');
