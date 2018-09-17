@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/cargamasiva', function (){
+    return view('subir2');
+});
