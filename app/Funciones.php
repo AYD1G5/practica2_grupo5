@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Producto;
+use App\User;
+use App\Factura;
 
 class Funciones extends Model
 {
@@ -16,14 +18,6 @@ class Funciones extends Model
         $respuesta=$cantidad * $precio;
         return $respuesta;
     }
-
-   /**
-    *  funcion calcular Total de Compra
-    */
-    public function calcularTotal()
-    {
-    }
-
     /**
     *funcion calcular IVA del precio de un producto
     */
@@ -74,4 +68,32 @@ class Funciones extends Model
         return $respuesta;        
     }
 
+    public function verificarRolUsuario($id_usuario){
+         $estudiantes = User::where('id',$id_usuario)->first();
+         return $estudiantes->rol;
+       
+     }
+
+     public function verificarExistenciaProducto($id_producto, $cantidad){
+        $producto = Producto::where('id_producto',$id_producto)->first();;
+        if($producto->cantidad_disponible-$cantidad>0){
+            return true;
+        }else{
+            return false;
+        }
+     }
+
+     public function verificarExistePedido($id_factura){
+        $factura = Factura::where('id_factura')->first();
+        return $factura;
+    }
+
+    public function calcularTotal($elementos){
+        $factura = Factura::where('id_factura')->first();
+        $suma = 0;
+        foreach($elmenetos as $elemento){
+            $suma += $elemento->subtotal;
+        }
+        return $suma;
+    }
 }
