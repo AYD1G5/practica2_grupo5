@@ -20,3 +20,12 @@ Route::get('/cargamasiva', function (){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/PruebaCrearCliente', function(){
+  return view('CRUDClientes.CrearCliente');
+});
+Route::get('/PruebaEditarCliente2', function(){
+  return view('CRUDClientes.EditarCliente2');
+});
+Route::get('/PruebaEditarCliente', function(){
+  return view('CRUDClientes.EditarCliente');
+});
