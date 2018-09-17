@@ -33,3 +33,6 @@ Route::get('/EliminarProducto', function (){
 Route::get('/VerProducto', function (){
     return view('CRUDPRODUCTO/Listar');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
