@@ -45,3 +45,6 @@ Route::get('/PruebaEditarCliente', function(){
   return view('CRUDClientes.EditarCliente');
 });
 Route::get('/facturacompra', 'FacturaCompraController@index');
+
+Route::get('/Catalogo', 'CatalogoController@Catalogo');
+Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');
