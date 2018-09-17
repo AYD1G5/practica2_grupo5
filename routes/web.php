@@ -18,9 +18,8 @@ Route::get('/cargamasiva', function (){
     return view('subir2');
 });
 
-Route::get('/CrearProducto', function (){
-    return view('CRUDPRODUCTO/Crear');
-});
+Route::post('/CrearProducto','ProductosController@guardar');
+Route::get('/CrearProducto', 'ProductosController@mostrar');
 
 Route::get('/EditarProducto', function (){
     return view('CRUDPRODUCTO/Editar');
@@ -33,3 +32,4 @@ Route::get('/EliminarProducto', function (){
 Route::get('/VerProducto', function (){
     return view('CRUDPRODUCTO/Listar');
 });
+
