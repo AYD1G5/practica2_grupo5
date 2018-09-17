@@ -17,3 +17,12 @@ Route::get('/', function () {
 Route::get('/cargamasiva', function (){
     return view('subir2');
 });
+Route::get('/PruebaCrearCliente', function(){
+  return view('CRUDClientes.CrearCliente');
+});
+Route::get('/PruebaEditarCliente2', function(){
+  return view('CRUDClientes.EditarCliente2');
+});
+Route::get('/PruebaEditarCliente', function(){
+  return view('CRUDClientes.EditarCliente');
+});
