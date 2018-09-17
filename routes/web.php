@@ -17,6 +17,22 @@ Route::get('/', function () {
 Route::get('/cargamasiva', function (){
     return view('subir2');
 });
+
+Route::get('/CrearProducto', function (){
+    return view('CRUDPRODUCTO/Crear');
+});
+
+Route::get('/EditarProducto', function (){
+    return view('CRUDPRODUCTO/Editar');
+});
+
+Route::get('/EliminarProducto', function (){
+    return view('CRUDPRODUCTO/Eliminar');
+});
+
+Route::get('/VerProducto', function (){
+    return view('CRUDPRODUCTO/Listar');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
