@@ -67,37 +67,13 @@
 <br />
 <br />
 <br />
-@if ($Bandera)
   <div class="container">
       <main class="py-4">
             @yield('content')
         </main>
     </div>
-@else
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-              <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                   
-                    <H1>Cuenta Bloqueada</H1>
-                    No tienes permiso para logearte, ponte en comunicacion con un Administrador!
-               </div>
-               
-            </div>
-        </div>
-    </div>
-    
-</div>
- 
-@endif
+
 @endguest
 
    
