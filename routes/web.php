@@ -17,3 +17,6 @@ Route::get('/', function () {
 Route::get('/cargamasiva', function (){
     return view('subir2');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
