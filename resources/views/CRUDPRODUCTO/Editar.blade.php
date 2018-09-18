@@ -1,51 +1,32 @@
 @extends('layouts.app')
 @section('content')
-
-<div class="jumbotron">
-  <h1 class="display-3">Edición de Productos</h1>
-  <p class="lead">Ingrese la información necesaria para crear un nuevo producto:</p>
-  <hr class="my-4">
-  
-  <form method="POST" action="/VerProducto" accept-charset="UTF-8" enctype="multipart/form-data">
-
-  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-<div class="form-group">
-  <label class="col-form-label" for="inputDefault">Nombre de Proeucto</label>
-  <input name="nombre" type="text" class="form-control" placeholder="Nombre" id="inputDefault">
-</div>
-
-<div class="form-group">
-  <label class="col-form-label" for="inputDefault">Descripción de Producto</label>
-  <input name="desc" type="text" class="form-control" placeholder="Descripción" id="inputDefault">
-</div>
-
-<div class="form-group">
-  <label class="col-form-label" for="inputDefault">Cantidad Disponible</label>
-  <input name="cantidad" type="text" class="form-control" placeholder="Cantidad" id="inputDefault">
-</div>
-
-<div class="form-group">
-      <label for="exampleInputFile">Imagen de Producto</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-      <small id="fileHelp" class="form-text text-muted">Seleccione una imagen para el producto que se está creando.</small>
-</div>
-
-<div class="form-group">
-  <label class="control-label">Precio del prducto</label> 
-  <div class="form-group">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Q.</span>
-      </div>
-      <input name="float" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-      <div class="input-group-append">
-        <span class="input-group-text">.00</span>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="button"> </div>  
-<button type="submit">Guardar</button>
-</form>   
-
+<form method="post">
+  @csrf
+  <table class="table table-hover">
+  <thead>
+  <tr class="table-primary">
+    <th scope="col">Id.</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Descripcion</th>
+    <th scope="col">Cantidad</th>
+    <th scope="col">Ruta Imagen</th>
+    <th scope="col">Precio</th>
+  </tr>
+  </thead>
+    <tbody>
+      @foreach($productos as $producto)
+        <tr class="table-info">
+          <th scope="row">{{ $producto->id_producto }}</th>
+          <td>{{ $producto->nombre }}</td>
+          <td>{{ $producto->descripcion }}</td>
+          <td>{{ $producto->cantidad_disponible }}</td>
+          <td>{{ $producto->ruta_imagen }}</td>
+          <td>{{ $producto->precio }}</td>
+          <td>{!! link_to('Editar2/'.$producto->id_producto, 'Editar', ['class' => 'btn btn-warning']) !!}</td>
+        </tr>
+      @endforeach
+    </tbody>
+  </table>
+</form>
 @endsection
+
