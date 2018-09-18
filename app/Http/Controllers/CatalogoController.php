@@ -15,7 +15,9 @@ class CatalogoController extends Controller
         /**
          * retorno de la vista de grupos a los que pertenece el usuario
          * */        
-        return view('Catalogo')->with("catalogo",$Catalogo);
+        return view('Catalogo')
+        ->with("catalogo",$Catalogo)
+        ->with("contador",0);
     } 
     public function PerfilProducto($idproducto)
     {
