@@ -36,10 +36,10 @@ class Funciones extends Model
     */
     public function aumentarStock($id_producto,$cantidad)
     {
-        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        $producto=Producto::where('id_producto',$id_producto)->first();
         $producto->cantidad_disponible=$producto->cantidad_disponible+$cantidad;
         $producto->save();
-        $producto2=Pruducto::where('id_producto',$id_producto)->get();
+        $producto2=Producto::where('id_producto',$id_producto)->get();
         return $producto->cantidad_disponible;
     }  
     /**
@@ -47,10 +47,10 @@ class Funciones extends Model
     */
     public function disminuirStock($id_producto,$cantidad)   
     {
-        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        $producto=Producto::where('id_producto',$id_producto)->first();
         $producto->cantidad_disponible=$producto->cantidad_disponible-$cantidad;
         $producto->save();
-        $producto2=Pruducto::where('id_producto',$id_producto)->get();
+        $producto2=Producto::where('id_producto',$id_producto)->get();
         return $producto->cantidad_disponible;
     }
     /**
@@ -59,7 +59,7 @@ class Funciones extends Model
     public function productoExiste($id_producto)
     {
         $respuesta=false;
-        $producto=Pruducto::where('id_producto',$id_producto)->first();
+        $producto=Producto::where('id_producto',$id_producto)->first();
         if(!$producto->isEmpty())
         {
             $respuesta=true;
@@ -91,7 +91,7 @@ class Funciones extends Model
     public function calcularTotal($elementos){
         $factura = Factura::where('id_factura')->first();
         $suma = 0;
-        foreach($elmenetos as $elemento){
+        foreach($elementos as $elemento){
             $suma += $elemento->subtotal;
         }
         return $suma;

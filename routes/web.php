@@ -44,4 +44,8 @@ Route::get('/PruebaEditarCliente2', function(){
 Route::get('/PruebaEditarCliente', function(){
   return view('CRUDClientes.EditarCliente');
 });
-Route::get('/facturacompra', 'FacturaCompraController@index');
+
+Route::post('/ProveedorProducto','FacturaCompraController@guardar');
+Route::get('/ProveedorProducto', 'FacturaCompraController@index');
+Route::get('/ProveedorProducto/eliminar/{id}', 'FacturaCompraController@eliminar');
+Route::get('/ProveedorProducto/finalizar', 'FacturaCompraController@finalizar');
