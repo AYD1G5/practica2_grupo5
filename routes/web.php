@@ -29,9 +29,9 @@ Route::get('/EliminarProducto', function (){
     return view('CRUDPRODUCTO/Eliminar');
 });
 
-Route::get('/VerProducto', function (){
-    return view('CRUDPRODUCTO/Listar');
-});
+
+Route::resource('/VerProducto', 'ProductosController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

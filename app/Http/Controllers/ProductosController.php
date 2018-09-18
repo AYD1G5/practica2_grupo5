@@ -14,6 +14,8 @@ class ProductosController extends Controller
     public function index()
     {
         //
+        $productos = Producto::all();
+        return View('CRUDPRODUCTO.Listar')->with('productos', $productos);
     }
 
     /**
@@ -80,6 +82,10 @@ class ProductosController extends Controller
     public function destroy($id)
     {
         //
+        $producto = Producto::find($id);
+        $producto->delete();
+        
+        
     }
 
     public function guardar(Request $request)
