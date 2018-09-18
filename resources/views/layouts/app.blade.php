@@ -67,7 +67,6 @@
 <br />
 <br />
 <br />
-
   <div class="container">
       <main class="py-4">
             @yield('content')
