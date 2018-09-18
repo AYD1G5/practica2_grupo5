@@ -21,7 +21,12 @@ class CatalogoController extends Controller
     } 
     public function PerfilProducto($idproducto)
     {
-        
-        return view('PerfilProducto');
+        $producto=DB::table('producto as P')
+        ->where('P.id_producto', '=',$idproducto)->first();
+        /**
+         * retorno de la vista de grupos a los que pertenece el usuario
+         * */        
+        return view('PerfilProducto')
+        ->with("producto",$producto);
     } 
 }
