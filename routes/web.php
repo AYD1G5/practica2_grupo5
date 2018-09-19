@@ -45,3 +45,13 @@ Route::get('/PruebaEditarCliente', function(){
   return view('CRUDClientes.EditarCliente');
 });
 Route::get('/facturacompra', 'FacturaCompraController@index');
+
+Route::get('/Carrito/ListarProductos', 'CarritoController@listar');
+Route::get('/Carrito/EliminarProducto/{id}', 'CarritoController@eliminar');
+Route::post('/Carrito/AgregarProducto/{id}', 'CarritoController@agregaralcarrito')->name('AgregarProducto');
+Route::post('/Carrito/ActualizarCantidad/{id}', 'CarritoController@actualizarcantidad')->name('ActualizarCantidad');
+Route::get('/Carrito/Vaciar', 'CarritoController@vaciarRuta');
+Route::get('/Carrito/FinalizarCompra', 'CarritoController@finalizarCompra');
+Route::get('/PruebaAgregar', function(){
+    return view('CARRITO.agregar');
+  });

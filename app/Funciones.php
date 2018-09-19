@@ -47,11 +47,48 @@ class Funciones extends Model
     */
     public function disminuirStock($id_producto,$cantidad)   
     {
-        $producto=Pruducto::where('id_producto',$id_producto)->first();
-        $producto->cantidad_disponible=$producto->cantidad_disponible-$cantidad;
-        $producto->save();
-        $producto2=Pruducto::where('id_producto',$id_producto)->get();
+        $producto=Producto::where('id_producto',$id_producto)->first();
+        if(($producto->cantidad_disponible-$cantidad) >= 0){
+            $producto->cantidad_disponible=$producto->cantidad_disponible-$cantidad;
+            $producto->save();    
+        }
         return $producto->cantidad_disponible;
+    }
+
+    /**
+    * Funcion para Verificar que el Stock tenga suficientes productos
+    */
+    public function verificarStock($id_producto,$cantidad)   
+    {
+        $producto=Producto::where('id_producto',$id_producto)->first();
+        if($producto->cantidad_disponible >= $cantidad){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /**
+    * Funcion para Aumentar la cantidad de productos en el carrito
+    */
+    public function aumentarCarro($id_user,$cantidad)   
+    {
+        $usuario = User::find($id_user);
+        $usuario->no_items = $usuario->no_items + $cantidad;
+        $usuario->save();
+        return $usuario->no_items;
+    }
+
+    /**
+    * Funcion para Disminuir la cantidad de productos en el carrito
+    */
+    public function disminuirCarro($id_user,$cantidad)   
+    {
+        $usuario = User::find($id_user);
+        if(($usuario->no_items - 1) >= 0){
+            $usuario->no_items = $usuario->no_items - 1;
+        }
+        $usuario->save();
+        return $usuario->no_items;
     }
     /**
     * Funcion para Verificar si existe un producto en inventario
@@ -59,8 +96,8 @@ class Funciones extends Model
     public function productoExiste($id_producto)
     {
         $respuesta=false;
-        $producto=Pruducto::where('id_producto',$id_producto)->first();
-        if(!$producto->isEmpty())
+        $producto=Producto::findOrFail($id_producto);
+        if(!$producto == null)
         {
             $respuesta=true;
         }

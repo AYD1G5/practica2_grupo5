@@ -17,8 +17,8 @@ class CreateDetalleCompraTable extends Migration
             $table->increments('id_detalle_compra');
             $table->integer('id_producto');
             $table->integer('cantidad');
-            $table->integer('precio');
-            $table->integer('subtotal')->nullable();
+            $table->float('precio')->nullable();
+            $table->float('subtotal')->nullable();
             $table->timestamps();
         });
     }

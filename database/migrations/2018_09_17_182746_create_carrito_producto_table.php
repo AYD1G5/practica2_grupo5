@@ -14,9 +14,14 @@ class CreateCarritoProductoTable extends Migration
     public function up()
     {
         Schema::create('carrito_producto', function (Blueprint $table) {
+            $table->increments('id_carrito_producto');
             $table->integer('id_carrito')->unsigned();
             $table->integer('id_producto')->unsigned();
+            $table->text('nombre_producto')->nullable();
+            $table->string('ruta_imagen')->nullable();
             $table->integer('cantidad')->unsigned()->nullable();
+            $table->float('precio')->unsigned()->nullable();
+            $table->float('subtotal')->unsigned()->nullable();
             $table->timestamps();
         });
     }

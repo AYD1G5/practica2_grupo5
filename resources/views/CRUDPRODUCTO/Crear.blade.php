@@ -38,7 +38,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text">Q.</span>
       </div>
-      <input name="float" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      <input name="precio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
       <div class="input-group-append">
         <span class="input-group-text">.00</span>
       </div>

@@ -18,6 +18,7 @@ class CreateFacturaTable extends Migration
             $table->integer('id_user')->unsigned();
             $table->string('fecha')->nullable();
             $table->integer('estado')->unsigned();
+            $table->float('total')->unsigned()->nullable();
             $table->timestamps();
         });
     }

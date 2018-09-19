@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Carrito;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,6 +53,9 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'apellido' => 'required|string|max:255',
+            'nit' => 'required|string|max:255',
+            'direccion_envio' => 'required|string|max:255',
         ]);
     }
 
@@ -63,10 +67,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $salida = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'apellido' => $data['apellido'],
+            'nit' => $data['nit'],
+            'direccion_envio' => $data['direccion_envio'],
+            'rol' => '1',
+            'no_items' => '0'
         ]);
+        if(!$salida->errors){
+            $carrito = new Carrito();
+            $carrito->id_user = $salida->id;
+            $carrito->save();
+        }
+        return $salida;
     }
 }

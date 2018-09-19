@@ -19,7 +19,7 @@ class CreateProductoTable extends Migration
             $table->text('descripcion')->nullable();
             $table->integer('cantidad_disponible')->unsigned()->nullable();
             $table->string('ruta_imagen')->nullable();
-            $table->float('precio')->nullable();
+            $table->float('precio');
             $table->timestamps();
         });
     }

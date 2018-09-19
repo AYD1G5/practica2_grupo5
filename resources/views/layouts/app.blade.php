@@ -42,6 +42,27 @@
             <ul class="navbar-nav">
             </ul>
             <ul class="nav navbar-nav ml-auto">
+
+                <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    
+                    <img src="{{URL::asset('/img/cart2.png')}}" alt="profile Pic" height="30" width="30">    
+                        @if(Auth::user()->no_items === 0)
+                            
+                        @else
+                            <span class="badge badge-light"> {{ Auth::user()->no_items }}</span>
+                        @endif
+                    
+                    <span class="caret"></span>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{URL::asset('/Carrito/ListarProductos')}}">{{ __('Ver Carrito') }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ __('Agregar Carrito') }}</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a class="dropdown-item" href="{{URL::asset('/Carrito/Vaciar')}}">{{ __('Vaciar Carrito') }}</a></li>
+                    </ul>
+                </li>
+                
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -58,7 +79,8 @@
                         </form>
                     </div>
                 </li>
-                  </ul>
+
+                </ul>
 
         </div>
       </div>

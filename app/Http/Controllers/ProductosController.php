@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Producto;
+use Illuminate\Support\Facades\Redirect;
 class ProductosController extends Controller
 {
     /**
@@ -99,7 +100,7 @@ class ProductosController extends Controller
          $destinationPath = 'fotosproductos/';
          $file->move($destinationPath, $file->getClientOriginalName());
         
-        return $this->mostrar();
+         return Redirect::to('/CrearProducto');
     }
 
     public function mostrar()
