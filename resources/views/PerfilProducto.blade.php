@@ -12,5 +12,13 @@
 <b>Precio:   </b>  Q{{$producto->precio}}<br>
 <P ALIGN="justify"><b>Descripcion:   </b> {{$producto->descripcion}}
 </Font>
+
+<?php
+    echo Form::open(array('route' => array('AgregarProducto', $producto->id_producto), 'class'=>'form-inline'));
+    echo Form::number('cantidad', '1', ['min'=>0, 'class' => 'form-control form-control-sm', 'style' => 'width:8%;']);
+    echo Form::submit('Agregar', ['class' => 'btn btn-info btn-sm']);
+    echo Form::close();
+?>
+
 </div>
 @endsection

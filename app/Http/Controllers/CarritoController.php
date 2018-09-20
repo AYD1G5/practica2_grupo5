@@ -70,6 +70,13 @@ class CarritoController extends Controller
             dd('No existe el producto');
         }
         $carrito_usuario=$this->carritoUsuario();
+        $yaestaagregado = DB::table('carrito_producto')
+                    ->where('id_producto', $id)
+                    ->get();
+        if(count($yaestaagregado)>0){
+            return Redirect::to('/Carrito/ListarProductos')
+            ->with('notice', 'El producto ya esta agregado');
+        }
         $prod = Producto::find($id);
         if(!$this->func->verificarStock($prod->id_producto, $request->input('cantidad'))){
             return Redirect::to('/Carrito/ListarProductos')
@@ -134,6 +141,6 @@ class CarritoController extends Controller
             $fac->save();
         }
         $this->vaciarCarro();
-        return Redirect::to('/home');
+        return Redirect::to('/Catalogo');
     }
 }

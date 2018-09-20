@@ -52,8 +52,5 @@ Route::post('/Carrito/AgregarProducto/{id}', 'CarritoController@agregaralcarrito
 Route::post('/Carrito/ActualizarCantidad/{id}', 'CarritoController@actualizarcantidad')->name('ActualizarCantidad');
 Route::get('/Carrito/Vaciar', 'CarritoController@vaciarRuta');
 Route::get('/Carrito/FinalizarCompra', 'CarritoController@finalizarCompra');
-Route::get('/PruebaAgregar', function(){
-    return view('CARRITO.agregar');
-  });
 Route::get('/Catalogo', 'CatalogoController@Catalogo');
 Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');

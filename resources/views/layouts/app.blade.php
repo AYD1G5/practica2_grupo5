@@ -17,7 +17,7 @@
   <body style="" class="">
   <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
       <div class="container">
-        <a href="#" class="navbar-brand">[AYD1] Practica 2</a>
+        <a href="{{URL::asset('/Catalogo')}}" class="navbar-brand">[AYD1] Practica 2</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,7 +57,7 @@
                 </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{URL::asset('/Carrito/ListarProductos')}}">{{ __('Ver Carrito') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Agregar Carrito') }}</a></li>
+                        <li><a class="dropdown-item" href="{{URL::asset('/Catalogo')}}">{{ __('Agregar Carrito') }}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a class="dropdown-item" href="{{URL::asset('/Carrito/Vaciar')}}">{{ __('Vaciar Carrito') }}</a></li>
                     </ul>
