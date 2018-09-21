@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Producto;
 use Illuminate\Support\Facades\Redirect;
@@ -15,6 +15,8 @@ class ProductosController extends Controller
     public function index()
     {
         //
+        $productos = Producto::all();
+        return View('CRUDPRODUCTO.Listar')->with('productos', $productos);
     }
 
     /**
@@ -81,6 +83,12 @@ class ProductosController extends Controller
     public function destroy($id)
     {
         //
+        $producto = Producto::find($id);
+        $producto->delete();
+        $productos = Producto::all();
+        return View('CRUDPRODUCTO.Listar')->with('productos', $productos);
+        
+        
     }
 
     public function guardar(Request $request)
@@ -109,6 +117,47 @@ class ProductosController extends Controller
         return view('CRUDPRODUCTO.Crear'); 
     }
     
+    public function MostrarFormProductos(){
+        $productos = Producto::all();
+        return view('CRUDPRODUCTO.Editar')->with('productos', $productos);
+    }
 
+    public function MostrarFormaParaEditarProductos($idProducto){
+        $producto = Producto::where(array(
+          'id_producto' => $idProducto
+        ))->first();
+        return view('CRUDPRODUCTO.Editar2')->with('producto', $producto);
+    }
+
+    public function ActualizarProducto(Request $request, $idProducto){
+        $productos =Producto::find($idProducto);
+        $productos->nombre = $request->nombre;
+        $productos->descripcion = $request->desc;
+        $productos->cantidad_disponible = $request->cantidad;
+
+        $file = $request->file('archivo');
+        
+        $productos->ruta_imagen=$file->getClientOriginalName();
+
+        $productos->precio = $request->float;
+        $productos->save();
+        $us = Producto::all();
+            return view('CRUDPRODUCTO.Editar')->with('productos', $us);
+    }
+
+    public function EliminarProductos(){
+        $productos = Producto::all();
+        return view('CRUDPRODUCTO.Eliminar')->with('productos', $productos);
+      }
+  
+      public function EliminarProductos2($idProducto){
+              $producto = Producto::where(array(
+                'id_producto' => $idProducto
+              ))->first();
+              $producto->delete();
+        $productos = Producto::all();
+        return view('CRUDPRODUCTO.Eliminar')->with('productos', $productos);
+      }
+  
 
 }
