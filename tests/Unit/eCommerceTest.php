@@ -6,8 +6,10 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Controllers\Controller;
-use App\Http\Objeto;
-use App\Http\Funciones;
+use Illuminate\Support\Collection;
+use App\Objeto;
+use App\Producto;
+use App\Funciones;
 
 class eCommerceTest extends TestCase
 {
@@ -16,9 +18,22 @@ class eCommerceTest extends TestCase
     */
     public function testCalcularSubTotal()
     {
-        $funciones=new Funciones(); 
-                
-        $this->assertEquals(1500,$funciones->calcularSubTotal(5,300));
+        //Arrange (Preparar)
+        $funciones=new Funciones();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoX';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+        //Act (Actuar)
+        $respuestaFuncion=$funciones->calcularSubTotal($prod->cantidad_disponible,$prod->precio);
+        $RescpuestaCorrecta=$prod->cantidad_disponible*$prod->precio;
+        $prod->delete();
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+        
     }
 
     /**
@@ -30,43 +45,83 @@ class eCommerceTest extends TestCase
         $this->assertEquals(120,$funciones->calcularIva(1120));    
     }
 
-        /**
+    /**
     * Prueba para la funcion Aumentar Stock
     */
     public function testAumentarStock()
     {
-        $funciones=new Funciones();                 
-        $this->assertEquals(150,$funciones->aumentarStock(1,50));    
-    }    /**
+        //Arrange (Preparar)
+        $funciones=new Funciones();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoX';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '100';
+        $prod->save();
+        //Act (Actuar)
+        $aumento=50;
+        $respuestaFuncion=$funciones->aumentarStock($prod->id_producto,$aumento);
+        $RescpuestaCorrecta=$prod->cantidad_disponible+$aumento;
+        $prod->delete();
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }    
+    /**
     * Prueba para la funcion calcular IVA
-    */
+    */    
     public function testDisminuirStock()
     {
-        $funciones=new Funciones();                 
-        $this->assertEquals(140,$funciones->disminuirStock(1,10));    
+        //Arrange (Preparar)
+        $funciones=new Funciones();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoX';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '100';
+        $prod->save();
+        //Act (Actuar)
+        $disminucion=50;
+        $respuestaFuncion=$funciones->disminuirStock($prod->id_producto,$disminucion);
+        $RescpuestaCorrecta=$prod->cantidad_disponible-$disminucion;
+        $prod->delete();
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
     }
 
     public function testProductoExiste()
     {
-        $funciones=new PerfilGrupoController(); 
-        $this->assertTrue($funciones->productoExiste(1));
+        //Arrange (Preparar)
+        $funciones=new Funciones();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoX';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '100';
+        $prod->save();
+        //Act (Actuar)
+        $respuestaFuncion=$funciones->productoExiste($prod->id_producto);
+        $prod->delete();
+        //Assert (Afirmar)
+
+        $this->assertTrue($respuestaFuncion);
     }
 
     /**
      * Prueba para averiguar el rol del usuario especifico.
      *
-     * @return void
      */
     public function testVerificarRolUsuario()
     {
         $funciones=new Funciones(); 
-        $this->assertEquals(0,$funciones->verificarRolUsuario(1));
+        $this->assertEquals(1,$funciones->verificarRolUsuario(1));
     }
 
     /**
      * Prueba para averiguar si de un producto especifico se puede comprar cierta cantidad de elementos.
      *
-     * @return void
      */
     public function testVerificarExistenciaProducto()
     {
@@ -75,23 +130,13 @@ class eCommerceTest extends TestCase
     }
 
     /**
-     * Prueba para averiguar si un pedido existe.
-     *
-     * @return void
-     */
-    public function testVerificarExistePedido()
-    {
-        $funciones=new Funciones(); 
-        $this->assertNotNull($funciones->verificarExistePedido(1));
-    }
-
-    /**
      * Prueba para sumar el subtotal de una coleccion.
      *
-     * @return void
      */
     public function testCalcularTotal()
     {
+        //Arrange (Preparar)
+        $funciones=new Funciones(); 
         $subtotalesCollection = new Collection();
         $objeto1 = new Objeto();
         $objeto1->subtotal = 50;
@@ -105,8 +150,13 @@ class eCommerceTest extends TestCase
         $objeto4 = new Objeto();
         $objeto4->subtotal = 250;
         $subtotalesCollection->push($objeto4);
-        $funciones=new Funciones(); 
-        $this->assertEquals(490,$funciones->calcularTotal($subtotalesCollection));   
+        
+        //Act (Actuar)
+        $respuestaFuncion=$funciones->calcularTotal($subtotalesCollection);
+        $RescpuestaCorrecta=490;
+        
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);   
     }
     
 }
