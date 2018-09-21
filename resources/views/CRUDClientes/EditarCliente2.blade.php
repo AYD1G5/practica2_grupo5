@@ -1,31 +1,32 @@
 @extends('layouts.app')
 @section('content')
+<form method="post">
+@csrf
 <h1 align="center">EDITAR CLIENTE</h1>
 <div class="jumbotron">
   <div class="form-group">
   <label class="col-form-label" for="inputDefault">NOMBRES</label>
-  <input type="text" class="form-control" placeholder="INGRESE SUS NOMBRES" id="inputDefault">
+  <input name="nombres" type="text" class="form-control" value={{$usuario->name}} id="inputDefault1">
 </div>
   <div class="form-group">
   <label class="col-form-label" for="inputDefault">APELLIDOS</label>
-  <input type="text" class="form-control" placeholder="INGRESE SUS APELLIDOS" id="inputDefault">
+  <input  name="apellidos" type="text" class="form-control" value={{$usuario->apellido}} id="inputDefault2">
 </div>
   <div class="form-group">
   <label class="col-form-label" for="inputDefault">NIT</label>
-  <input type="text" class="form-control" placeholder="INGRESE SU NUMERO DE IDENTIFICACION TRIBUTARIA" id="inputDefault">
+  <input name="nit" type="text" class="form-control" value={{$usuario->nit}} id="inputDefault3">
 </div>
   <div class="form-group">
   <label class="col-form-label" for="inputDefault">DIRECCION DE ENVIO</label>
-  <input type="text" class="form-control" placeholder="INGRESE SU DIRECCION" id="inputDefault">
+  <input name="direnvio"  type="text" class="form-control" value={{$usuario->direccion_envio}} id="inputDefault4">
 </div>
   <div class="form-group">
   <label for="exampleInputEmail1">CORREO ELECTRONICO</label>
-  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="INGRESE SU CORREO ELETRONICO">
-  <small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más.</small>
+  <input name="correo" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={{$usuario->email}}>
 </div>
-<div class="form-group">
-  <label for="exampleInputPassword1">CONTRASEÑA</label>
-  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="INGRESE SUS PASSWORD">
+  <div class="form-group">
+  <label class="col-form-label" for="inputDefault">CONTRASEÑA</label>
+  <input name="pass" type="text" class="form-control" value={{$usuario->password}} id="inputDefault5">
 </div>
 <hr class="my-4">
 
@@ -38,6 +39,7 @@
   </div>
 </fieldset>
 
-<button type="button" class="btn btn-primary btn-lg btn-block">EDITAR CLIENTE</button>
+<button type="submit" class="btn btn-primary btn-lg btn-block">EDITAR CLIENTE</button>
 </div>
+</form>
 @endsection
