@@ -18,20 +18,7 @@ Route::get('/cargamasiva', function (){
     return view('subir2');
 });
 
-Route::post('/CrearProducto','ProductosController@guardar');
-Route::get('/CrearProducto', 'ProductosController@mostrar');
 
-Route::get('/EditarProducto', function (){
-    return view('CRUDPRODUCTO/Editar');
-});
-
-Route::get('/EliminarProducto', function (){
-    return view('CRUDPRODUCTO/Eliminar');
-});
-
-Route::get('/VerProducto', function (){
-    return view('CRUDPRODUCTO/Listar');
-});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -55,6 +42,23 @@ Route::get('/EliminarCliente/{idUsuario}', 'ClientesController@EliminarClientes2
 /*Route::get('/PruebaEditarCliente2', function(){
   return view('CRUDClientes.EditarCliente2');
 });*/
+
+Route::get('/PruebaEditarCliente', function(){
+  return view('CRUDClientes.EditarCliente');
+});
+
+//-----------------------------------------------------------------------
+Route::post('/CrearProducto','ProductosController@guardar');
+Route::get('/CrearProducto', 'ProductosController@mostrar');
+//-----------------------------------------------------------------------
+
+Route::get('/Editar', 'ProductosController@MostrarFormProductos');
+Route::get('Editar2/{idProducto}', 'ProductosController@MostrarFormaParaEditarProductos');
+Route::post('Editar2/{idProducto}', 'ProductosController@ActualizarProducto');
+//-----------------------------------------------------------------------
+Route::get('/Eliminar', 'ProductosController@EliminarProductos');
+Route::get('/Eliminar/{idProducto}', 'ProductosController@EliminarProductos2');
+
 
 Route::get('/facturacompra', 'FacturaCompraController@index');
 
