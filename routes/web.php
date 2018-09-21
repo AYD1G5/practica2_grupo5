@@ -35,15 +35,27 @@ Route::get('/VerProducto', function (){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/PruebaCrearCliente', function(){
+
+//-----------------------------------------------------------------------
+Route::get('/CrearCliente', 'ClientesController@MostrarFormCrearCliente');
+Route::post('/CrearCliente', 'ClientesController@CrearCliente');
+//-----------------------------------------------------------------------
+
+Route::get('/EditarCliente', 'ClientesController@MostrarFormClientes');
+Route::get('EditarCliente2/{idUsuario}', 'ClientesController@MostrarFormaParaEditarClientes');
+Route::post('EditarCliente2/{idUsuario}', 'ClientesController@ActualizarCliente');
+//-----------------------------------------------------------------------
+Route::get('/EliminarCliente', 'ClientesController@EliminarClientes');
+Route::get('/EliminarCliente/{idUsuario}', 'ClientesController@EliminarClientes2');
+
+//-----------------------------------------------------------------------
+/*Route::get('/PruebaCrearCliente', function(){
   return view('CRUDClientes.CrearCliente');
-});
-Route::get('/PruebaEditarCliente2', function(){
+});*/
+/*Route::get('/PruebaEditarCliente2', function(){
   return view('CRUDClientes.EditarCliente2');
-});
-Route::get('/PruebaEditarCliente', function(){
-  return view('CRUDClientes.EditarCliente');
-});
+});*/
+
 Route::get('/facturacompra', 'FacturaCompraController@index');
 
 Route::get('/Carrito/ListarProductos', 'CarritoController@listar');
