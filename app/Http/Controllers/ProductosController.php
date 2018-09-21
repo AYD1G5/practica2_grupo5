@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Producto;
-use Illuminate\Support\Facades\Redirect;
 class ProductosController extends Controller
 {
     /**

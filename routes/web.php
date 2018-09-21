@@ -70,3 +70,6 @@ Route::get('/Carrito/Vaciar', 'CarritoController@vaciarRuta');
 Route::get('/Carrito/FinalizarCompra', 'CarritoController@finalizarCompra');
 Route::get('/Catalogo', 'CatalogoController@Catalogo');
 Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');
+
+Route::get('/EnviosAdmin', 'EnviosController@EnviosAdmin');
+Route::get('/CambiarEstado/{estado}/{factura}', 'EnviosController@CambiarEstado');
