@@ -72,3 +72,7 @@ Route::get('/Catalogo', 'CatalogoController@Catalogo');
 Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');
 Route::get('/Facturas/DetalleFactura/{id}', 'FacturaVentaController@mostrarfactura');
 Route::get('/Facturas/Listar', 'FacturaVentaController@listarFacturasUsuario');
+
+Route::get('/EnviosAdmin', 'EnviosController@EnviosAdmin');
+Route::get('/CambiarEstado/{estado}/{factura}', 'EnviosController@CambiarEstado');
+Route::get('/Admin', 'EnviosController@Dashboard');
