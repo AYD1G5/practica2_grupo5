@@ -73,3 +73,4 @@ Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');
 
 Route::get('/EnviosAdmin', 'EnviosController@EnviosAdmin');
 Route::get('/CambiarEstado/{estado}/{factura}', 'EnviosController@CambiarEstado');
+Route::get('/Admin', 'EnviosController@Dashboard');

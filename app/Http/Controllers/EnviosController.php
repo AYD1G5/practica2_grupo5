@@ -19,4 +19,7 @@ class EnviosController extends Controller
         $facturas->save();
         return redirect('/EnviosAdmin');
     }
+    public function Dashboard(){
+        return view('DashAdmin');
+      }
 }
