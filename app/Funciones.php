@@ -27,10 +27,10 @@ class Funciones extends Model
         $razon=1.12;
         $costo=$precio/$razon;
         $porcentajeIva=0.12;
-        $iva=$costo*$porcentajeIva;
+        $iva=$precio*$porcentajeIva;
         return $iva;
         
-    }
+    }   
     /**
     * Funcion para Aumentar Stock de un producto en inventario
     */
@@ -122,8 +122,8 @@ class Funciones extends Model
      }
 
      public function verificarExistePedido($id_factura){
-        $factura = Factura::where('id_factura')->first();
-        return $factura;
+        $factura = Factura::where('id_factura', $id_factura)->get();
+        return count($factura);
     }
 
     public function calcularTotal($elementos){

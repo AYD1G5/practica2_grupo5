@@ -55,8 +55,8 @@
                         echo Form::close();
                     ?>
                     </td>
-                    <td class="align-middle"> {{ $pcar->precio }} </td>
-                    <td class="align-middle"> {{ $pcar->subtotal }} </td>
+                    <td class="align-middle"> {{number_format((float)$pcar->precio, 2, '.', '')}} </td>
+                    <td class="align-middle"> {{number_format((float)$pcar->subtotal, 2, '.', '')}} </td>
 					<td class="align-middle"> {!! link_to('/Carrito/EliminarProducto/'.$pcar->id_carrito_producto, 'Eliminar', ['class' => 'btn btn-danger btn-raised btn-md']) !!}</td>
                 </tr>
                 @endforeach
@@ -66,7 +66,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><strong>Total: {{$total}}</strong></td>
+					<td><strong>Total: {{number_format((float)$total, 2, '.', '')}} </strong></td>
                     <td></td>
 				</tr>
             </tbody>

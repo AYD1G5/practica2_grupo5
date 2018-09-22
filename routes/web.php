@@ -70,3 +70,5 @@ Route::get('/Carrito/Vaciar', 'CarritoController@vaciarRuta');
 Route::get('/Carrito/FinalizarCompra', 'CarritoController@finalizarCompra');
 Route::get('/Catalogo', 'CatalogoController@Catalogo');
 Route::get('/PerfilProducto/{idproducto}', 'CatalogoController@PerfilProducto');
+Route::get('/Facturas/DetalleFactura/{id}', 'FacturaVentaController@mostrarfactura');
+Route::get('/Facturas/Listar', 'FacturaVentaController@listarFacturasUsuario');

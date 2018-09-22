@@ -21,7 +21,9 @@ class CreateFacturaProductoTable extends Migration
             $table->string('ruta_imagen')->nullable();
             $table->integer('cantidad')->unsigned()->nullable();
             $table->float('precio')->unsigned()->nullable();
+            $table->float('iva')->unsigned()->nullable();
             $table->float('subtotal')->unsigned()->nullable();
+            $table->float('subtotaliva')->unsigned()->nullable();
             $table->timestamps();
         });
     }

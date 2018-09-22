@@ -114,6 +114,7 @@ class CarritoController extends Controller
         $productoscarrito=DB::table('carrito_producto')
         ->where('id_carrito', '=', $carrito_usuario->id_carrito)
         ->get();   
+        $id_fac = 0;
         if(count($productoscarrito)>0){
             $fac = new Factura();
             $fac->id_user = Auth::id();
@@ -139,8 +140,13 @@ class CarritoController extends Controller
             }
             $fac->total = $total;
             $fac->save();
+            $id_fac = $fac->id_factura;
         }
         $this->vaciarCarro();
-        return Redirect::to('/Catalogo');
+        if($id_fac == 0){
+            return Redirect::to('/Catalogo');
+        }else{
+            return Redirect::to('/Facturas/DetalleFactura/'.$id_fac);
+        }
     }
 }
