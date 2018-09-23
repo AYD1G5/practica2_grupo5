@@ -18,6 +18,7 @@ class Funciones extends Model
         $respuesta=$cantidad * $precio;
         return $respuesta;
     }
+
     /**
     *funcion calcular IVA del precio de un producto
     */
@@ -31,6 +32,7 @@ class Funciones extends Model
         return $iva;
         
     }   
+    
     /**
     * Funcion para Aumentar Stock de un producto en inventario
     */
@@ -42,6 +44,7 @@ class Funciones extends Model
         $producto2=Producto::where('id_producto',$id_producto)->first();
         return $producto2->cantidad_disponible;
     }  
+    
     /**
     * Funcion para Disminuir Stock de un producto en inventario
     */
@@ -106,13 +109,20 @@ class Funciones extends Model
         return $respuesta;        
     }
 
+    /**
+    * Funcion para Verificar que rol tiene un usuario
+    */
     public function verificarRolUsuario($id_usuario){
          $estudiantes = User::where('id',$id_usuario)->first();
          return $estudiantes->rol;
        
      }
 
-     public function verificarExistenciaProducto($id_producto, $cantidad){
+    /**
+    * Funcion para Verificar si el stock de un producto
+    * puede cubrir una compra
+    */
+    public function verificarExistenciaProducto($id_producto, $cantidad){
         $producto = Producto::where('id_producto',$id_producto)->first();;
         if($producto->cantidad_disponible-$cantidad>0){
             return true;
@@ -121,11 +131,19 @@ class Funciones extends Model
         }
      }
 
-     public function verificarExistePedido($id_factura){
+    /**
+    * Funcion que servira para la vista en que el usuario podrá 
+    * verificar si existe su pedido
+    */
+    public function verificarExistePedido($id_factura){
         $factura = Factura::where('id_factura', $id_factura)->get();
         return count($factura);
     }
 
+    /**
+    * Recibe una coleccion de datos donde existe un campo llamado Subtotal y los sumara 
+    * todos para obtener un total.
+    */
     public function calcularTotal($elementos){
         $factura = Factura::where('id_factura')->first();
         $suma = 0;
