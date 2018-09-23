@@ -41,11 +41,12 @@ class FacturaVentaController extends Controller
         $totaliva = 0;
         foreach($detallesfactura as $det){
             if($this->func->productoExiste($det->id_producto)){
-                $det->iva = $this->func->calcularIva($det->subtotal);
                 $det->subtotaliva = $this->func->calcularSubTotal($det->cantidad, $det->precio);    
+                $det->iva = $this->func->calcularIva($det->subtotaliva);
                 $det->subtotal = $det->subtotaliva - $det->iva;
-                $totaliva = $totaliva + $det->subtotaliva;
-                $total = $total + $det->subtotal;
+                
+                $totaliva += $det->subtotaliva;
+                $total += $det->subtotal;
             }
         }
         return view('FACTURA.mostrar', ["detallesfactura"=>$detallesfactura, "total"=>$total, 

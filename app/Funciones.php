@@ -27,7 +27,7 @@ class Funciones extends Model
         $razon=1.12;
         $costo=$precio/$razon;
         $porcentajeIva=0.12;
-        $iva=$precio*$porcentajeIva;
+        $iva=$costo*$porcentajeIva;
         return $iva;
         
     }   
