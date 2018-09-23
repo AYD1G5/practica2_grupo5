@@ -76,3 +76,7 @@ Route::get('/Facturas/Listar', 'FacturaVentaController@listarFacturasUsuario');
 Route::get('/EnviosAdmin', 'EnviosController@EnviosAdmin');
 Route::get('/CambiarEstado/{estado}/{factura}', 'EnviosController@CambiarEstado');
 Route::get('/Admin', 'EnviosController@Dashboard');
+Route::post('/ProveedorProducto','FacturaCompraController@guardar');
+Route::get('/ProveedorProducto', 'FacturaCompraController@index');
+Route::get('/ProveedorProducto/eliminar/{id}', 'FacturaCompraController@eliminar');
+Route::get('/ProveedorProducto/finalizar', 'FacturaCompraController@finalizar');

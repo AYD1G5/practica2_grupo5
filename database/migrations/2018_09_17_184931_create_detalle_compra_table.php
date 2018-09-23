@@ -16,6 +16,7 @@ class CreateDetalleCompraTable extends Migration
         Schema::create('detalle_compra', function (Blueprint $table) {
             $table->increments('id_detalle_compra');
             $table->integer('id_producto');
+            $table->string('nombre_producto');
             $table->integer('cantidad');
             $table->float('precio')->nullable();
             $table->float('subtotal')->nullable();
