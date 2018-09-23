@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'apellido' => $data['apellido'],
             'nit' => $data['nit'],
             'direccion_envio' => $data['direccion_envio'],
-            'rol' => '1',
+            'rol' => '0',
             'no_items' => '0'
         ]);
         if(!$salida->errors){
