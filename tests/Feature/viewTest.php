@@ -9,6 +9,7 @@ use App\User;
 use App\Carrito;
 use App\Carrito_Producto;
 use App\Producto;
+use App\Factura;
 use App\Http\Controllers\CarritoController;
 use Illuminate\Support\Facades\Hash;
 
@@ -390,6 +391,48 @@ class viewTest extends TestCase
     }
 
     /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista CrearProducto POST
+    */
+    public function testVistaCrearProductoPOST(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'nuevoX@gmail.com';
+        $usuario->password = 'PasswordX';
+        $usuario->rol = '0';
+        $usuario->save();
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => $usuario->email,
+                    'password' => $usuario->password,
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=500; //Codigo HTTP de respuesta correcta
+        
+        
+        //Act (Actuar)
+        $llamaVista=$this->call('POST', '/CrearProducto', [
+            'cantidad'=>'10',
+            'nombre'=>'productoXPruebaPost',
+            'desc'=>'Descripcion de producto',
+            'archivo'=>'Db.jpg',
+            'precio'=>'50'
+        ]);
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $Producto=Producto::where('nombre','productoXPruebaPost')->first();
+        $usuario->delete();
+    
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+
+
+    /**Evaluar la respuesta del metodo del controlador que 
     * devulve la vista Editar
     */
     public function testVistaEditar(){
@@ -417,6 +460,135 @@ class viewTest extends TestCase
         $respuestaFuncion=$llamaVista->getStatusCode();
         $usuario->delete();
         
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+
+
+    /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista Editar2 con id de produto 
+    */
+    public function testVistaEditar2IdProd(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'nuevoX@gmail.com';
+        $usuario->password = 'PasswordX';
+        $usuario->rol = '1';
+        $usuario->save();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoXlp';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => $usuario->email,
+                    'password' => $usuario->password,
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=200; //Codigo HTTP de respuesta correcta
+                
+        //Act (Actuar)
+        $llamaVista=$this->get('/Editar2/'.$prod->id_producto);
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $usuario->delete();
+        $prod->delete();
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+    /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista CrearProducto POST
+    */
+    public function testVistaEditarProductoPOSTID(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'nuevoX@gmail.com';
+        $usuario->password = 'PasswordX';
+        $usuario->rol = '0';
+        $usuario->save();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoXlp';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => $usuario->email,
+                    'password' => $usuario->password,
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=500; //Codigo HTTP de respuesta correcta
+        
+        
+        //Act (Actuar)
+        $llamaVista=$this->call('POST', '/Editar2/'.$prod->id_producto, [            
+            'nombre'=>'productoXPruebaPost',
+            'desc'=>'Descripcion de producto',
+            'cantidad'=>'10',
+            'archivo'=>'C:\\Users\\GameAndStudy\\Desktop\\eliminar\\Db.jpg',
+            'float'=>'50'
+        ]);
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $Producto=Producto::where('nombre','productoXPruebaPost')->first();
+        $usuario->delete();
+    
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+
+
+
+            /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista Editar2 con id de produto 
+    */
+    public function testVistaEliminar2IdProd(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'nuevoX@gmail.com';
+        $usuario->password = 'PasswordX';
+        $usuario->rol = '1';
+        $usuario->save();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoXlp';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => $usuario->email,
+                    'password' => $usuario->password,
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=200; //Codigo HTTP de respuesta correcta
+                
+        //Act (Actuar)
+        $llamaVista=$this->get('/Eliminar/'.$prod->id_producto);
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $usuario->delete();
         //Assert (Afirmar)
         $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
     }
@@ -492,6 +664,47 @@ class viewTest extends TestCase
         //Assert (Afirmar)
         $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
     }
+
+
+        /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista CambiarEstadoFactura
+    */
+    public function testCambiarEstado(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'nuevoEstadoFactX@gmail.com';
+        $usuario->password = 'PasswordX';
+        $usuario->rol = '1';
+        $usuario->save();
+        $factura = new Factura();
+        $factura->id_user=$usuario->id; 
+        $factura->fecha='2018-09-24 02:02:02';
+        $factura->estado='0';
+        $factura->total = '150';
+        $factura->save();
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => $usuario->email,
+                    'password' => $usuario->password,
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=302; //Codigo HTTP de respuesta correcta
+                
+        //Act (Actuar)
+        $llamaVista=$this->get('/CambiarEstado/1/'.$factura->id_factura);
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $factura->delete();
+        $usuario->delete();
+        
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
 
     /**Evaluar la respuesta del metodo del controlador que 
     * devulve la vista EnviosAdmin

@@ -6,34 +6,6 @@ use Illuminate\Http\Request;
 use App\Producto;
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-        $productos = Producto::all();
-        return View('CRUDPRODUCTO.Listar')->with('productos', $productos);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $producto = Producto::find($id);
-        $producto->delete();
-        $productos = Producto::all();
-        return View('CRUDPRODUCTO.Listar')->with('productos', $productos);
-        
-        
-    }
 
     public function guardar(Request $request)
     {
