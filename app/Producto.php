@@ -10,5 +10,4 @@ class Producto extends Model
     protected $primaryKey = 'id_producto';
     protected $table = 'producto';
 
-    protected $primaryKey='id_producto';
 }

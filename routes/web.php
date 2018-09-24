@@ -43,9 +43,10 @@ Route::get('/EliminarCliente/{idUsuario}', 'ClientesController@EliminarClientes2
   return view('CRUDClientes.EditarCliente2');
 });*/
 
-Route::get('/PruebaEditarCliente', function(){
+/*Route::get('/PruebaEditarCliente', function(){
   return view('CRUDClientes.EditarCliente');
 });
+*/
 
 //-----------------------------------------------------------------------
 Route::post('/CrearProducto','ProductosController@guardar');
