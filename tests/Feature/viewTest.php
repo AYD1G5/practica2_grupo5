@@ -856,7 +856,7 @@ class viewTest extends TestCase
         $usuario->apellido = 'ApellidoX';
         $usuario->nit = '333-3';
         $usuario->email = 'nuevoX@gmail.com';
-        $usuario->password = 'PasswordX';
+        $usuario->password = Hash::make('PasswordX');
         $usuario->rol = '1';
         $usuario->save();
         $carrito = new Carrito();
@@ -864,8 +864,8 @@ class viewTest extends TestCase
         $carrito->save();
                 //autenticarse
                 $response = $this->call('POST', '/login', [
-                    'email' => $usuario->email,
-                    'password' => $usuario->password,
+                    'email' => 'nuevoX@gmail.com',
+                    'password' =>'PasswordX',
                     '_token' => csrf_token()
                 ]);
                 //Establecer respuesta correcta
@@ -928,8 +928,8 @@ class viewTest extends TestCase
 
                 //autenticarse
                 $response = $this->call('POST', '/login', [
-                    'email' => $usuario->email,
-                    'password' => $usuario->password,
+                    'email' => 'n@gmail.com',
+                    'password' => 'PasswordX',
                     '_token' => csrf_token()
                 ]);
                 //Establecer respuesta correcta
@@ -939,6 +939,118 @@ class viewTest extends TestCase
         $llamaVista=$this->get('/Carrito/ListarProductos');
         $respuestaFuncion=$llamaVista->getStatusCode();
         $carProd->delete();
+        $prod->delete();
+        $carrito->delete();
+        $usuario->delete();
+
+        
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+
+    /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista Agregar de Carrito de Compras
+    */
+    public function testVistaAgregarCarrito(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'n@gmail.com';
+        $usuario->password = Hash::make('PasswordX');
+        $usuario->rol = '0';
+        $usuario->no_items = '0';
+        $usuario->direccion_envio='Ciudad';
+        $usuario->save();
+        $carrito = new Carrito();
+        $carrito->id_user = $usuario->id;
+        $carrito->save();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoXlp';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => 'n@gmail.com',
+                    'password' => 'PasswordX',
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=302; //Codigo HTTP de respuesta correcta
+
+        //Act (Actuar)
+        $llamaVista=$this->call('POST', '/Carrito/AgregarProducto/'.$prod->id_producto, [
+            'cantidad' => '5',
+        ]);
+        
+        $respuestaFuncion=$llamaVista->getStatusCode();
+        $prod->delete();
+        $carrito->delete();
+        $usuario->delete();
+
+        
+        //Assert (Afirmar)
+        $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+    }
+
+
+        /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista Eliminar de Carrito de Compras
+    */
+    public function testVistaCarritoEliminarProductos(){
+        //Arrange (Preparar)
+            //crear un usuario
+        $usuario = new User();
+        $usuario->name = 'NuevoX';
+        $usuario->apellido = 'ApellidoX';
+        $usuario->nit = '333-3';
+        $usuario->email = 'n@gmail.com';
+        $usuario->password = Hash::make('PasswordX');
+        $usuario->rol = '0';
+        $usuario->no_items = '0';
+        $usuario->direccion_envio='Ciudad';
+        $usuario->save();
+        $carrito = new Carrito();
+        $carrito->id_user = $usuario->id;
+        $carrito->save();
+        $prod = new Producto();
+        $prod->nombre = 'ProductoXlp';
+        $prod->descripcion='Producto de Prueba'; 
+        $prod->cantidad_disponible='100';
+        $prod->ruta_imagen='Db.jpg';
+        $prod->precio = '150';
+        $prod->save();
+        $carProd=new Carrito_Producto();
+        $carProd->id_carrito=$carrito->id_carrito;
+        $carProd->nombre_producto=$prod->nombre;
+        $carProd->ruta_imagen=$prod->ruta_imagen;
+        $carProd->cantidad=5;
+        $carProd->precio=$prod->precio;
+        $carProd->subtotal=$carProd->cantidad*$prod->precio;
+        $carProd->id_producto=$prod->id_producto;
+        $carProd->save();
+        $usuario->no_items=5;
+        $usuario->save();
+
+                //autenticarse
+                $response = $this->call('POST', '/login', [
+                    'email' => 'n@gmail.com',
+                    'password' => 'PasswordX',
+                    '_token' => csrf_token()
+                ]);
+                //Establecer respuesta correcta
+        $RescpuestaCorrecta=302; //Codigo HTTP de respuesta correcta
+
+        //Act (Actuar)
+        $llamaVista=$this->get('/Carrito/EliminarProducto/'.$prod->id_producto);
+        $respuestaFuncion=$llamaVista->getStatusCode();
         $prod->delete();
         $carrito->delete();
         $usuario->delete();
@@ -959,7 +1071,7 @@ class viewTest extends TestCase
             $usuario->apellido = 'ApellidoX';
             $usuario->nit = '333-3';
             $usuario->email = 'nuevolpX@gmail.com';
-            $usuario->password = 'PasswordX';
+            $usuario->password = Hash::make('PasswordX');
             $usuario->rol = '0';
             $usuario->no_items = '0';
             $usuario->direccion_envio='Ciudad';
@@ -969,8 +1081,8 @@ class viewTest extends TestCase
             $carrito->save();
                     //autenticarse
                 $response = $this->call('POST', '/login', [
-                    'email' => $usuario->email,
-                    'password' => $usuario->password,
+                    'email' => 'nuevolpX@gmail.com',
+                    'password' => 'PasswordX',
                     '_token' => csrf_token()
                 ]);
                 //Establecer respuesta correcta
@@ -1033,13 +1145,13 @@ class viewTest extends TestCase
         $usuario->apellido = 'ApellidoX';
         $usuario->nit = '333-3';
         $usuario->email = 'nuevoX@gmail.com';
-        $usuario->password = 'PasswordX';
+        $usuario->password =  Hash::make('PasswordX');
         $usuario->rol = '1';
         $usuario->save();
                 //autenticarse
                 $response = $this->call('POST', '/login', [
-                    'email' => $usuario->email,
-                    'password' => $usuario->password,
+                    'email' => 'nuevoX@gmail.com',
+                    'password' => 'PasswordX',
                     '_token' => csrf_token()
                 ]);
                 //Establecer respuesta correcta
@@ -1055,6 +1167,37 @@ class viewTest extends TestCase
     }
     
 
+    /**Evaluar la respuesta del metodo del controlador que 
+    * devulve la vista Factura Compra
+    */
+    public function testFacturaCompra(){
+        //Arrange (Preparar)
+            //crear un usuario
+            $usuario = new User();
+            $usuario->name = 'NuevoX';
+            $usuario->apellido = 'ApellidoX';
+            $usuario->nit = '333-3';
+            $usuario->email = 'nuevoX@gmail.com';
+            $usuario->password = 'PasswordX';
+            $usuario->rol = '1';
+            $usuario->save();
+                    //autenticarse
+                    $response = $this->call('POST', '/login', [
+                        'email' => $usuario->email,
+                        'password' => $usuario->password,
+                        '_token' => csrf_token()
+                    ]);
+                    //Establecer respuesta correcta
+            $RescpuestaCorrecta=302; //Codigo HTTP de respuesta correcta
+                    
+            //Act (Actuar)
+            $llamaVista=$this->get('/ProveedorProducto');
+            $respuestaFuncion=$llamaVista->getStatusCode();
+            $usuario->delete();
+            
+            //Assert (Afirmar)
+            $this->assertEquals($RescpuestaCorrecta,$respuestaFuncion);
+        }
 
 
 
